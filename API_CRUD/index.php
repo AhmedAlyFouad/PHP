@@ -4,7 +4,7 @@ require("connection.php");
 $method = $_SERVER["REQUEST_METHOD"];
 
 
-switch ($method){ // CRUD
+switch ($method){
     case "POST": 
         $name = $_POST["name"];
         $price = $_POST["price"];
