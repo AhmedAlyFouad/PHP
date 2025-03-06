@@ -16,7 +16,7 @@ switch ($method){
             echo json_encode(["status"=>"success", "message" => "Posted"]);
         }else{
             http_response_code(404);
-            echo json_encode(["status"=>"error",  "message" => "Invalid data"]);
+            echo json_encode(["status"=>"error",  "message" => "Invalid"]);
         }
         break;
     case "GET": 
@@ -34,7 +34,7 @@ switch ($method){
             echo json_encode(["status"=>"success", "message" => "Updated"]);
         }else{
             http_response_code(404);
-            echo json_encode(["status"=>"error", "message" => "This id isn't exists"]);
+            echo json_encode(["status"=>"error", "message" => "This id does not exists"]);
         }
         break;
     case "DELETE": 
@@ -46,7 +46,7 @@ switch ($method){
                 echo json_encode(["status"=>"success", "message" => "DELETED"]);
             }else{
                 http_response_code(404);
-                echo json_encode(["status"=>"error", "message" => "This id isn't exists"]);
+                echo json_encode(["status"=>"error", "message" => "This id does not exists"]);
             }
         }else{
             http_response_code(404); 
