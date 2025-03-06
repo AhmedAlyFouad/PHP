@@ -5,24 +5,24 @@ $method = $_SERVER["REQUEST_METHOD"];
 
 
 switch ($method){ // CRUD
-    case "POST": // C (Creat)
+    case "POST": 
         $name = $_POST["name"];
         $price = $_POST["price"];
         $description = $_POST["description"];
-        if(!empty($name) && !empty($price) && !empty($description)){ // validation
+        if(!empty($name) && !empty($price) && !empty($description)){ 
             $sql = "INSERT INTO `products`(`name`, `price`, `description`) VALUES ('$name','$price','$description')";
             $connection->query($sql);
-            http_response_code(200); // request succeeded
+            http_response_code(200); 
             echo json_encode(["status"=>"success", "message" => "Posted"]);
         }else{
-            http_response_code(404); // required data not found
+            http_response_code(404);
             echo json_encode(["status"=>"error",  "message" => "Invalid data"]);
         }
         break;
-    case "GET": // R (Read)
+    case "GET": 
         echo json_encode($connection->query("SELECT * FROM products")->fetch_all(MYSQLI_ASSOC));
         break;
-    case "PUT": // U (Update)
+    case "PUT": 
         $id = $_GET["id"];
         $data = json_decode(file_get_contents("php://input"), true);
         $name = $data["name"];
@@ -33,11 +33,11 @@ switch ($method){ // CRUD
         if($connection->affected_rows > 0){
             echo json_encode(["status"=>"success", "message" => "Updated"]);
         }else{
-            http_response_code(404); // required data not found
+            http_response_code(404);
             echo json_encode(["status"=>"error", "message" => "This id isn't exists"]);
         }
         break;
-    case "DELETE": // D (Delete)
+    case "DELETE": 
         if(isset($_GET["id"])){
             $id = $_GET["id"];
             $sql = "DELETE FROM products WHERE id = $id";
@@ -45,16 +45,16 @@ switch ($method){ // CRUD
             if($connection->affected_rows == 1){
                 echo json_encode(["status"=>"success", "message" => "DELETED"]);
             }else{
-                http_response_code(404); // data not found
+                http_response_code(404);
                 echo json_encode(["status"=>"error", "message" => "This id isn't exists"]);
             }
         }else{
-            http_response_code(404); // data not found
+            http_response_code(404); 
             echo json_encode(["status"=>"error", "message" => "There's no id provided"]);
             }
         break;
     default:
-        http_response_code(400); // invalid request from the client
+        http_response_code(400);
         echo json_encode(["message" => "undefined request method"]);
 }
 
